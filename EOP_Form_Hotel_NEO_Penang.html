@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<!--
+  ════════════════════════════════════════════════════════════
+  ███████╗ ██████╗ ██████╗     ███████╗ ██████╗ ██████╗ ███╗   ███╗
+  ██╔════╝██╔═══██╗██╔══██╗    ██╔════╝██╔═══██╗██╔══██╗████╗ ████║
+  █████╗  ██║   ██║██████╔╝    █████╗  ██║   ██║██████╔╝██╔████╔██║
+  ██╔══╝  ██║   ██║██╔═══╝     ██╔══╝  ██║   ██║██╔══██╗██║╚██╔╝██║
+  ███████╗╚██████╔╝██║         ██║     ╚██████╔╝██║  ██║██║ ╚═╝ ██║
+  ╚══════╝ ╚═════╝ ╚═╝         ╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝
+  ════════════════════════════════════════════════════════════
+     Hotel NEO+ Penang · Employee Official Permit (EOP) Form
+  ────────────────────────────────────────────────────────────
+     crafted with ☕ and stubbornness by  Kesh  (aka deadboy)
+  ────────────────────────────────────────────────────────────
+
+     Hey dev 👋 — there's some stuff hidden in here. Try these:
+
+       ▸ Open DevTools (F12)            full menu prints automatically
+       ▸ Type  deadboy()   in console   → credits
+       ▸ Type  partyMode() in console   → 🎉 emoji rain
+       ▸ Konami code: ↑ ↑ ↓ ↓ ← → ← → B A  (click outside any
+                                            input first, then type)
+       ▸ Triple-click the form title    → secret toast 👻
+
+  ════════════════════════════════════════════════════════════
+-->
+<html lang="en">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<title>Employee Official Permit (EOP) Form — Hotel NEO+ Penang</title>
+<link rel="icon" href="https://static.neohotels.com/v3/assets/img/favicon.ico">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+  /* Force light mode globally — prevents Firefox from inverting to dark
+     when the OS/browser is in dark mode (which was making PDFs come out black) */
+  :root {
+    color-scheme: light only;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #e8e8e8;
+    color: #000;
+    color-scheme: light;
+  }
+  body {
+    font-family: "Arial Narrow", "Liberation Sans Narrow", Arial, Helvetica, sans-serif;
+    background: #e8e8e8;
+    color: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============== CONTROL PANEL (hidden on print) ============== */
+  .controls {
+    background: #1f2937;
+    color: #fff;
+    padding: 14px 22px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  }
+  .controls .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .controls h1 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .controls .right-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .controls .clock {
+    font-size: 11px;
+    color: #9ca3af;
+    font-variant-numeric: tabular-nums;
+  }
+  .controls .lang-select {
+    padding: 6px 10px;
+    background: #111827;
+    color: #fff;
+    border: 1px solid #374151;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .controls .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px 14px;
+    align-items: end;
+  }
+  .controls .grid-hint {
+    font-size: 11px;
+    color: #9ca3af;
+    margin: 6px 0 10px 0;
+    padding: 8px 10px;
+    background: #0b0f17;
+    border-left: 3px solid #34d399;
+    border-radius: 4px;
+    line-height: 1.4;
+  }
+  .controls label {
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    color: #9ca3af;
+    gap: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+  }
+  /* Row holding the label text + the link toggle button */
+  .controls .lbl-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  /* The link toggle: 🔗 = linked (fills both copies), ⛓️‍💥 or faded = unlinked (top only) */
+  .controls .link-toggle {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #6b7280;            /* dim when unlinked (default) */
+    font-size: 13px;
+    line-height: 1;
+    padding: 2px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+    opacity: 0.55;
+    user-select: none;
+  }
+  .controls .link-toggle:hover {
+    background: #1f2937;
+    border-color: #374151;
+    color: #9ca3af;
+    opacity: 1;
+  }
+  .controls .link-toggle.is-linked {
+    color: #34d399;           /* green when linked */
+    opacity: 1;
+  }
+  .controls .link-toggle.is-linked:hover {
+    background: #052e26;
+    border-color: #059669;
+    color: #6ee7b7;
+  }
+  .controls input {
+    padding: 7px 9px;
+    border: 1px solid #374151;
+    background: #111827;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 13px;
+    font-family: inherit;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .controls input:focus {
+    outline: none;
+    border-color: #7a1c1c;
+    background: #0b0f17;
+  }
+  /* Visual hint when an input is NOT linked to the bottom copy */
+  .controls label[data-linked="false"] input {
+    border-left: 3px solid #374151;
+  }
+  .controls label[data-linked="true"] input {
+    border-left: 3px solid #34d399;
+  }
+  .controls .btn-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .controls button {
+    padding: 9px 18px;
+    background: #7a1c1c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    transition: background 0.15s;
+  }
+  .controls button:hover { background: #5f1515; }
+  .controls button.secondary { background: #374151; }
+  .controls button.secondary:hover { background: #4b5563; }
+  .controls button.ghost { background: transparent; border: 1px solid #4b5563; }
+  .controls button.ghost:hover { background: #374151; }
+
+  /* Toast feedback */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #111;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 24px;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 200;
+    pointer-events: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ============== A4 PAGE ============== */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    margin: 24px auto;
+    padding: 20mm 20mm;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    font-size: 11pt;
+    color: #000;
+  }
+
+  /* Title centered at top with maroon thick-thin double underline, matching the PDF */
+  .form-title {
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 6px;
+    /* Word's "thickThinSmallGap sz=24" = 3pt total, thick then thin with a small gap.
+       CSS doesn't have that exact style, but a double border gives the same visual. */
+    border-bottom: 3px double #622423;
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+    color: #000;
+  }
+
+  .logo {
+    width: 185px;
+    height: auto;
+    display: block;
+    margin: 6px 0 10px 0;
+  }
+
+  /* ============== FORM COPIES ============== */
+  .form-copy { padding: 4px 0 6px 0; }
+
+  /* To / Date rows — each on its own single line */
+  .meta { margin: 2px 0 4px 0; }
+  .meta-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin: 0 0 10px 0;
+    font-size: 11pt;
+    line-height: 1.35;
+  }
+  .meta-row .lbl {
+    display: inline-block;
+    min-width: 40px;
+  }
+  .meta-row .colon { margin-right: 4px; }
+  .meta-row .val {
+    flex: 0 1 auto;
+    min-height: 14px;
+  }
+
+  .auth-text {
+    margin: 6px 0 2px 0;
+    font-size: 11pt;
+    line-height: 1.3;
+  }
+
+  table.info {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+    table-layout: fixed;
+  }
+  table.info td {
+    border: 1px solid #000;
+    padding: 1px 6px;
+    font-size: 11pt;
+    line-height: 1.25;
+    vertical-align: middle;
+  }
+  table.info td.lbl-col {
+    width: 23%;
+    text-align: left;
+  }
+  table.info td.val-col {
+    text-align: center;  /* centred values to match the PDF */
+  }
+  .out-cell {
+    display: inline-block;
+    min-height: 14px;
+    min-width: 2px;
+  }
+
+  table.sign {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  table.sign td {
+    border: 1px solid #000;
+    padding: 4px 8px 4px 8px;
+    vertical-align: top;
+    font-size: 11pt;
+    line-height: 1.3;
+    width: 25%;
+  }
+  /* Adjust the first column to match the 2286/2394 Word grid (~24.1%) */
+  table.sign td:first-child { width: 24.1%; }
+  table.sign td .sig-label {
+    font-weight: bold;
+    display: block;
+  }
+  /* Spacer area that holds the signature image when drawn — gives the tall blank look of the original */
+  table.sign td .sig-area {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 2px;
+  }
+  table.sign td .sig-area img {
+    max-height: 36px;
+    max-width: 100%;
+    object-fit: contain;
+  }
+  /* Literal underscore line, just like the Word doc types ________ */
+  table.sign td .sig-rule {
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 1;
+    margin-top: 2px;
+  }
+  table.sign td .role {
+    font-weight: bold;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .cut-line {
+    border-top: 1px dashed #888;
+    margin: 14px 0;
+    position: relative;
+    text-align: center;
+    height: 1px;
+  }
+  .cut-line::before {
+    content: "✂  cut here";
+    background: #fff;
+    padding: 0 14px;
+    font-size: 8pt;
+    color: #888;
+    position: relative;
+    top: -7px;
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11pt;
+    padding-top: 6px;
+    margin-top: auto;
+    /* Word's "thinThickSmallGap sz=24" - mirror of the title (thin on top, thick on bottom) */
+    border-top: 3px double #622423;
+  }
+
+  /* ============== SIGNATURE MODAL ============== */
+  .sig-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .sig-modal.active { display: flex; }
+  .sig-modal-inner {
+    background: #fff;
+    padding: 22px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 540px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .sig-modal h2 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    color: #111;
+  }
+  .sig-modal p {
+    margin: 0 0 14px 0;
+    color: #6b7280;
+    font-size: 12px;
+  }
+  .sig-canvas {
+    border: 2px dashed #9ca3af;
+    width: 100%;
+    height: 200px;
+    background: #fff;
+    cursor: crosshair;
+    display: block;
+    border-radius: 6px;
+    touch-action: none;
+  }
+  .sig-modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 14px;
+  }
+  .sig-modal-actions button {
+    padding: 9px 18px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+    color: #111;
+    font-family: inherit;
+  }
+  .sig-modal-actions button:hover { background: #f3f4f6; }
+  .sig-modal-actions button.primary {
+    background: #7a1c1c;
+    color: #fff;
+    border-color: #7a1c1c;
+  }
+  .sig-modal-actions button.primary:hover { background: #5f1515; }
+
+  /* ============== PDF EXPORT MODE ============== */
+  /* Added temporarily to body during html2pdf generation so content renders
+     at exact A4 dimensions with tight spacing — prevents spilling to page 2 */
+  body.pdf-export {
+    background: #fff !important;
+  }
+  body.pdf-export .controls,
+  body.pdf-export .sig-modal,
+  body.pdf-export .toast { display: none !important; }
+  body.pdf-export .page {
+    width: 210mm !important;
+    max-width: 210mm !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 10mm 12mm !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    overflow: hidden !important;
+  }
+  body.pdf-export .form-title {
+    font-size: 18pt !important;
+    margin-bottom: 8px !important;
+    padding-bottom: 4px !important;
+  }
+  body.pdf-export .logo { width: 150px !important; margin: 2px 0 6px 0 !important; }
+  body.pdf-export .meta-row { margin-bottom: 4px !important; }
+  body.pdf-export .auth-text { margin: 4px 0 2px 0 !important; }
+  body.pdf-export table.info { margin-bottom: 4px !important; }
+  body.pdf-export table.sign td .sig-area { height: 28px !important; }
+  body.pdf-export .cut-line { margin: 8px 0 !important; }
+  body.pdf-export .footer { margin-top: 8px !important; padding-top: 4px !important; }
+
+  /* ============== PRINT ============== */
+  @media print {
+    /* Force light mode regardless of OS/browser preference (Firefox dark mode fix) */
+    :root, html, body { color-scheme: light !important; }
+
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm;   /* tighter margins so everything fits */
+    }
+
+    /* Force EVERY element to have white background + black text for print.
+       This defeats Firefox's dark-mode inversion and any inherited colors. */
+    html, body {
+      background: #fff !important;
+      background-color: #fff !important;
+      color: #000 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    *, *::before, *::after {
+      background-color: transparent !important;
+      color: #000 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Hide the UI chrome */
+    .controls, .sig-modal, .toast, .no-print { display: none !important; }
+
+    /* The form page itself — fill the printable area, don't force 297mm height */
+    .page {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      min-height: 0 !important;
+      height: auto !important;
+      max-height: none !important;
+      box-shadow: none !important;
+      background: #fff !important;
+      display: block !important;
+      /* Hard cap so content can't overflow to page 2 */
+      overflow: hidden !important;
+    }
+
+    /* Trim internal spacing on print only */
+    .form-copy { page-break-inside: avoid !important; margin: 0 !important; }
+    .form-title {
+      font-size: 18pt !important;
+      margin-bottom: 8px !important;
+      padding-bottom: 4px !important;
+      border-bottom-color: #622423 !important;
+    }
+    .logo { width: 150px !important; margin: 2px 0 6px 0 !important; }
+    .meta-row { margin-bottom: 4px !important; }
+    .auth-text { margin: 4px 0 2px 0 !important; }
+    table.info { margin-bottom: 4px !important; }
+    table.info td, table.sign td {
+      border-color: #000 !important;
+      background: #fff !important;
+    }
+    table.sign td .sig-area { height: 28px !important; }
+
+    .cut-line { margin: 8px 0 !important; }
+    .footer {
+      margin-top: 8px !important;
+      padding-top: 4px !important;
+      border-top-color: #622423 !important;
+    }
+
+    /* Force single page - anything that doesn't fit should truncate, not spill */
+    .page, .form-copy, table.sign, table.info, .footer {
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+    .page { page-break-after: avoid !important; break-after: avoid !important; }
+
+    /* Preserve the maroon title/footer borders — they're decorative but important */
+    .form-title { border-bottom: 3px double #622423 !important; }
+    .footer { border-top: 3px double #622423 !important; }
+
+    /* Hide anything after the .page element (stray whitespace/empty divs that
+       can cause an extra blank page) */
+    .page ~ * { display: none !important; }
+  }
+
+  /* ============== MOBILE / TABLET RESPONSIVE ============== */
+  @media (max-width: 900px) {
+    .page {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10mm 8mm;
+      box-shadow: none;
+    }
+    .controls { padding: 12px 14px; }
+    .controls h1 { font-size: 14px; }
+    .form-title { font-size: 16pt; }
+    .logo { width: 140px; }
+  }
+
+  /* Phone */
+  @media (max-width: 600px) {
+    body { background: #fff; }
+    .page {
+      padding: 6mm 5mm;
+      margin: 0;
+      font-size: 10pt;
+    }
+    .form-title { font-size: 14pt; letter-spacing: 0; padding-bottom: 4px; }
+    .logo { width: 110px; }
+
+    .controls { padding: 10px 12px; position: relative; }
+    .controls .title-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .controls h1 { font-size: 13px; }
+    .controls .right-group { width: 100%; justify-content: space-between; }
+    .controls .grid { grid-template-columns: 1fr; gap: 8px; }
+    .controls input { padding: 10px 12px; font-size: 16px; /* iOS anti-zoom */ }
+    .controls .btn-row { flex-direction: column; }
+    .controls button {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+
+    /* Shrink the info & sign tables a bit on phones */
+    table.info td { padding: 2px 5px; font-size: 10pt; }
+    table.sign td { padding: 3px 5px; font-size: 10pt; }
+    table.sign td .sig-area { height: 30px; }
+    table.sign td .sig-area img { max-height: 30px; }
+
+    .meta-row { margin-bottom: 6px; font-size: 10pt; }
+    .auth-text { font-size: 9.5pt; }
+    .footer { font-size: 9pt; }
+
+    /* Signature modal full-screen on phones */
+    .sig-modal-inner {
+      width: 96vw !important;
+      max-width: 96vw !important;
+      padding: 14px !important;
+    }
+    .sig-canvas {
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 3 / 1;
+    }
+  }
+
+  /* Very narrow phones */
+  @media (max-width: 380px) {
+    .page { padding: 5mm 3mm; }
+    .form-title { font-size: 12pt; }
+    .logo { width: 95px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ CONTROL PANEL ============ -->
+<div class="controls no-print">
+  <div class="title-row">
+    <h1 data-i18n="appTitle">Employee Official Permit (EOP) Form — Hotel NEO+ Penang</h1>
+    <div class="right-group">
+      <span class="clock" id="clock"></span>
+      <select class="lang-select" id="lang-select" title="Language">
+        <option value="en">English</option>
+        <option value="ms">Bahasa Malaysia</option>
+        <option value="zh">中文</option>
+        <option value="ta">தமிழ்</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid-hint" data-i18n="linkHintBanner">💡 Tip: click 🔗 next to a field to also fill it on the HR copy (bottom). By default only the top (Security) copy is filled.</div>
+  <div class="grid">
+    <label data-field-link="name" data-linked="false">
+      <span class="lbl-row">
+        <span data-i18n="name">Name</span>
+        <button type="button" class="link-toggle" data-i18n-title="linkHint" title="Click to also fill this field on the HR copy">🔗</button>
+      </span>
+      <input id="ctl-name" data-i18n-ph="phName" placeholder="e.g. Kesh" autocomplete="name">
+    </label>
+    <label data-field-link="position" data-linked="false">
+      <span class="lbl-row">
+        <span data-i18n="position">Position / Department</span>
+        <button type="button" class="link-toggle" data-i18n-title="linkHint" title="Click to also fill this field on the HR copy">🔗</button>
+      </span>
+      <input id="ctl-position" value="IT">
+    </label>
+    <label data-field-link="date" data-linked="false">
+      <span class="lbl-row">
+        <span data-i18n="date">Date</span>
+        <button type="button" class="link-toggle" data-i18n-title="linkHint" title="Click to also fill this field on the HR copy">🔗</button>
+      </span>
+      <input type="date" id="ctl-date">
+    </label>
+    <label data-field-link="time" data-linked="false">
+      <span class="lbl-row">
+        <span data-i18n="timeOut">Time Out</span>
+        <button type="button" class="link-toggle" data-i18n-title="linkHint" title="Click to also fill this field on the HR copy">🔗</button>
+      </span>
+      <input type="time" id="ctl-time">
+    </label>
+    <label data-field-link="reason" data-linked="false">
+      <span class="lbl-row">
+        <span data-i18n="reason">Reason</span>
+        <button type="button" class="link-toggle" data-i18n-title="linkHint" title="Click to also fill this field on the HR copy">🔗</button>
+      </span>
+      <input id="ctl-reason" data-i18n-ph="phReason" placeholder="e.g. Lunch" list="reasons">
+      <datalist id="reasons"></datalist>
+    </label>
+    <label data-field-link="duration" data-linked="false">
+      <span class="lbl-row">
+        <span data-i18n="duration">Duration Allowed</span>
+        <button type="button" class="link-toggle" data-i18n-title="linkHint" title="Click to also fill this field on the HR copy">🔗</button>
+      </span>
+      <input id="ctl-duration" data-i18n-ph="phDuration" placeholder="e.g. 1 hour" list="durations">
+      <datalist id="durations"></datalist>
+    </label>
+  </div>
+  <div class="btn-row">
+    <button class="secondary" id="btn-sign" data-i18n="addSig">✍ Add signature</button>
+    <button class="ghost" id="btn-clear-sig" data-i18n="clearSig">Clear signature</button>
+    <button class="ghost" id="btn-now" data-i18n="resetTime">⟳ Reset time to now</button>
+    <button class="secondary" id="btn-save-profile" data-i18n="saveProfile">💾 Save profile</button>
+    <button class="ghost" id="btn-clear-profile" data-i18n="clearProfile">Clear saved profile</button>
+    <button class="ghost" id="btn-link-toggle-all" data-i18n="linkAll">🔗 Link all to HR copy</button>
+    <button class="secondary" id="btn-save-pdf" data-i18n="savePdf">📄 Save as PDF</button>
+    <button id="btn-print" data-i18n="print">🖨 Print</button>
+  </div>
+</div>
+
+<!-- ============ A4 PAGE ============ -->
+<div class="page">
+  <div class="form-title">EMPLOYEE OFFICIAL PERMIT (EOP) FORM</div>
+  <img class="logo" src="data:image/png;base64,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+943+6ijDj3kkH322aexqTHa0DB+3LgaPi210alE8itXfGXhwoUVGITb9jQcdNBBRx999MEHHzxp0qRkYyoWi40bP15UW49uEARtbW2+73d1dq5bt67l1ZaXX365s7Nz4BJBJBCENdsQlFKGYdjc3Hz++eefdvpHJk+eHIlEwjAMgsAYEwRBLperrgcexphoNLr3PpOklAdOP/Ckkz/oed7rr7/+3//133968MFCoVAtWTiwnyeddNJ55//DjBkzUqmUrRTbtC0Wi7UchFq7jhvqsJKr5rSPnHbOueceeuihyWRSa22rRmtdLBSq8Wqw18SJUoj9D9j/mPe///xPfrKtrW3BggX33nvvxrc22IsATUOCsAZT0F5uPvLR0y+99NL9Ju+XL+RzuZwxxgbkwG++6o5La+15nhCiUCgYY5RSU6dOveqqKz/xiY/fdtuPF730UuVnob0H32fffa+44vITTzrJGJPP53t6egZuX0StD5bZ9iSswKqZ9r5pl19+xZzj5oRhmM/nbf+tqPLBMr7nCSFM8e2+0KampgsvvPAjH/nInb/+9d2/vbvqOlRAEA59lTHGuBH3q1/96vmf/GShWOjs6nQcp+pib5CM3/YPxWIhn89PnTbt3/793/7z9p/dddddlfyTtpfaD5x44txvzR07dmxvb699iOs4Dj/LSqiaj5x++lVXX5VqbOzp6amlqtkuxYMg6OrqisViX/3a12YdMeumm27q7e0lC+tNzc4jtPfajutef8MNn7rwwp6eHr/oua5bwy0MKZXjOPl8vlgsXvHVr3zpy/+sta7M1Lejlk497bRbbr0lmUz29vbWzA1KbaTgOeeee8ONN7iu21frVSOldF03DMPOzs6TT/nQj/7tXzOZjNG6HubtoPaD0N7TffnL//zRj360o6PDcRxZH9dZe83q6uq66KKL/vdnP1OBWWirZsaMGd/5znc8z/N9n1ZgRd2gzDn22CuvujKbzQZBUCdVY+Owq6vriCOOuOl7N0Wi0YrttQZBWN7v+UMf+tD/+vSnOzo6XLe+pkvajqyenp4vfvGLRx9zTEVlob24pFKpud+a60Zc3/dpCFZO1RhjxowZ8425c+1wmHqrGpuFc+bMufTSS+vw8AnCGvw9p1Kpy770xWKxWJ+3dbYQjDFf/dpX4/G4qJihDXaYz2c+85npBx2UzWZpC1ba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" alt="Hotel NEO+ Penang">
+
+  <!-- Copy 1: Security Post -->
+  <div class="form-copy" data-copy="top">
+    <div class="meta">
+      <div class="meta-row">
+        <span class="lbl">To</span><span class="colon">:</span>
+        <span class="val">Security Post</span>
+      </div>
+      <div class="meta-row">
+        <span class="lbl">Date</span><span class="colon">:</span>
+        <span class="val" data-field="date"></span>
+      </div>
+    </div>
+    <div class="auth-text">The employee mentioned below is authorized by the Management to go out the hotel during office hours</div>
+    <table class="info">
+      <tr><td class="lbl-col">Name</td><td class="val-col"><span class="out-cell" data-field="name"></span></td></tr>
+      <tr><td class="lbl-col">Position / Department</td><td class="val-col"><span class="out-cell" data-field="position"></span></td></tr>
+      <tr><td class="lbl-col">Time Out</td><td class="val-col"><span class="out-cell" data-field="time"></span></td></tr>
+      <tr><td class="lbl-col">Reason</td><td class="val-col"><span class="out-cell" data-field="reason"></span></td></tr>
+      <tr><td class="lbl-col">Duration Allowed</td><td class="val-col"><span class="out-cell" data-field="duration"></span></td></tr>
+    </table>
+    <table class="sign">
+      <tr>
+        <td>
+          <span class="sig-label">Requested by</span>
+          <div class="sig-area"><img class="sig-slot" alt=""></div>
+          <span class="sig-rule">_______________</span>
+          <span class="role">Employee</span>
+        </td>
+        <td>
+          <span class="sig-label">Approved by</span>
+          <div class="sig-area"></div>
+          <span class="sig-rule">_________________</span>
+          <span class="role">Dept. Head</span>
+        </td>
+        <td>
+          <span class="sig-label">Acknowledge 1</span>
+          <div class="sig-area"></div>
+          <span class="sig-rule">________________</span>
+          <span class="role">HR Dept</span>
+        </td>
+        <td>
+          <span class="sig-label">Acknowledge 2</span>
+          <div class="sig-area"></div>
+          <span class="sig-rule">________________</span>
+          <span class="role">Security</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="cut-line"></div>
+
+  <!-- Copy 2: HR -->
+  <div class="form-copy" data-copy="bottom">
+    <div class="meta">
+      <div class="meta-row">
+        <span class="lbl">To</span><span class="colon">:</span>
+        <span class="val">Human Resources</span>
+      </div>
+      <div class="meta-row">
+        <span class="lbl">Date</span><span class="colon">:</span>
+        <span class="val" data-field="date"></span>
+      </div>
+    </div>
+    <div class="auth-text">The employee mentioned below is authorized by the Management to go out the hotel during office hours</div>
+    <table class="info">
+      <tr><td class="lbl-col">Name</td><td class="val-col"><span class="out-cell" data-field="name"></span></td></tr>
+      <tr><td class="lbl-col">Position / Department</td><td class="val-col"><span class="out-cell" data-field="position"></span></td></tr>
+      <tr><td class="lbl-col">Time Out</td><td class="val-col"><span class="out-cell" data-field="time"></span></td></tr>
+      <tr><td class="lbl-col">Reason</td><td class="val-col"><span class="out-cell" data-field="reason"></span></td></tr>
+      <tr><td class="lbl-col">Duration Allowed</td><td class="val-col"><span class="out-cell" data-field="duration"></span></td></tr>
+    </table>
+    <table class="sign">
+      <tr>
+        <td>
+          <span class="sig-label">Requested by</span>
+          <div class="sig-area"><img class="sig-slot" alt=""></div>
+          <span class="sig-rule">_______________</span>
+          <span class="role">Employee</span>
+        </td>
+        <td>
+          <span class="sig-label">Approved by</span>
+          <div class="sig-area"></div>
+          <span class="sig-rule">_________________</span>
+          <span class="role">Dept. Head</span>
+        </td>
+        <td>
+          <span class="sig-label">Acknowledge 1</span>
+          <div class="sig-area"></div>
+          <span class="sig-rule">________________</span>
+          <span class="role">HR Dept</span>
+        </td>
+        <td>
+          <span class="sig-label">Acknowledge 2</span>
+          <div class="sig-area"></div>
+          <span class="sig-rule">________________</span>
+          <span class="role">Security</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="footer">
+    <span>HR/ Employee Official Permit Form/012</span>
+    <span>Page 1</span>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Signature modal -->
+<div class="sig-modal" id="sig-modal">
+  <div class="sig-modal-inner">
+    <h2 data-i18n="drawSig">Draw your signature</h2>
+    <p data-i18n="drawHint">Use your mouse, trackpad, or finger to sign.</p>
+    <canvas class="sig-canvas" id="sig-canvas" width="1000" height="300"></canvas>
+    <div class="sig-modal-actions">
+      <button id="sig-clear" data-i18n="btnClear">Clear</button>
+      <button id="sig-cancel" data-i18n="btnCancel">Cancel</button>
+      <button class="primary" id="sig-save" data-i18n="btnSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const pad = (n) => n.toString().padStart(2, '0');
+
+  /* ============ I18N ============ */
+  const I18N = {
+    en: {
+      appTitle: "Employee Official Permit (EOP) Form — Hotel NEO+ Penang",
+      name: "Name", position: "Position / Department", date: "Date",
+      timeOut: "Time Out", reason: "Reason", duration: "Duration Allowed",
+      addSig: "✍ Add signature", clearSig: "Clear signature",
+      resetTime: "⟳ Reset time to now", print: "🖨 Print",
+      saveProfile: "💾 Save profile", clearProfile: "Clear saved profile",
+      savePdf: "📄 Save as PDF",
+      linkAll: "🔗 Link all to HR copy",
+      unlinkAll: "🔗 Unlink all",
+      linkHint: "Click to also fill this field on the HR copy (bottom)",
+      linkHintBanner: "💡 Tip: click 🔗 next to a field to also fill it on the HR copy (bottom). By default only the top (Security) copy is filled, so no paper is wasted if you don't actually go out.",
+      drawSig: "Draw your signature",
+      drawHint: "Use your mouse, trackpad, or finger to sign.",
+      btnClear: "Clear", btnCancel: "Cancel", btnSave: "Save",
+      phName: "e.g. Kesh", phReason: "e.g. Lunch", phDuration: "e.g. 1 hour",
+      nowLabel: "Now",
+      toastSaved: "Profile saved ✓", toastLoaded: "Profile loaded",
+      toastCleared: "Profile cleared",
+      toastNoStorage: "Couldn't save — browser storage unavailable",
+      toastPastDate: "⚠ This date is in the past — are you sure?",
+      toastPdfGenerating: "Generating PDF…",
+      toastPdfSaved: "PDF saved ✓",
+      toastPdfError: "Could not generate PDF",
+      reasons: ["Lunch","Meeting","Bank errand","Personal","Medical"],
+      durations: ["30 minutes","1 hour","1.5 hours","2 hours"]
+    },
+    ms: {
+      appTitle: "Borang Permit Rasmi Pekerja (EOP) — Hotel NEO+ Penang",
+      name: "Nama", position: "Jawatan / Jabatan", date: "Tarikh",
+      timeOut: "Masa Keluar", reason: "Sebab", duration: "Tempoh Dibenarkan",
+      addSig: "✍ Tambah tandatangan", clearSig: "Padam tandatangan",
+      resetTime: "⟳ Tetapkan masa sekarang", print: "🖨 Cetak",
+      saveProfile: "💾 Simpan profil", clearProfile: "Padam profil tersimpan",
+      savePdf: "📄 Simpan sebagai PDF",
+      linkAll: "🔗 Pautkan semua ke salinan HR",
+      unlinkAll: "🔗 Putuskan semua pautan",
+      linkHint: "Klik untuk mengisi medan ini pada salinan HR (bawah)",
+      linkHintBanner: "💡 Petua: klik 🔗 di sebelah medan untuk mengisinya juga pada salinan HR (bawah). Secara lalai hanya salinan atas (Sekuriti) diisi, jadi tiada kertas dibazirkan jika anda tidak keluar.",
+      drawSig: "Lukis tandatangan anda",
+      drawHint: "Gunakan tetikus, pad sesentuh, atau jari untuk menandatangani.",
+      btnClear: "Padam", btnCancel: "Batal", btnSave: "Simpan",
+      phName: "cth: Kesh", phReason: "cth: Makan tengah hari",
+      phDuration: "cth: 1 jam",
+      nowLabel: "Sekarang",
+      toastSaved: "Profil disimpan ✓", toastLoaded: "Profil dimuatkan",
+      toastCleared: "Profil dikosongkan",
+      toastNoStorage: "Tidak boleh disimpan — storan pelayar tidak tersedia",
+      toastPastDate: "⚠ Tarikh ini sudah berlalu — anda pasti?",
+      toastPdfGenerating: "Menjana PDF…",
+      toastPdfSaved: "PDF disimpan ✓",
+      toastPdfError: "Tidak dapat menjana PDF",
+      reasons: ["Makan tengah hari","Mesyuarat","Urusan bank","Peribadi","Perubatan"],
+      durations: ["30 minit","1 jam","1.5 jam","2 jam"]
+    },
+    zh: {
+      appTitle: "员工正式通行证 (EOP) 表格 — Hotel NEO+ Penang",
+      name: "姓名", position: "职位 / 部门", date: "日期",
+      timeOut: "外出时间", reason: "原因", duration: "允许时长",
+      addSig: "✍ 添加签名", clearSig: "清除签名",
+      resetTime: "⟳ 重置为当前时间", print: "🖨 打印",
+      saveProfile: "💾 保存档案", clearProfile: "清除已保存档案",
+      savePdf: "📄 另存为 PDF",
+      linkAll: "🔗 全部同步到人力资源副本",
+      unlinkAll: "🔗 取消全部同步",
+      linkHint: "点击后此字段也会填入人力资源副本（下方）",
+      linkHintBanner: "💡 提示：点击字段旁的 🔗 以同步填入人力资源副本（下方）。默认只填上方（保安）副本，这样您若未外出也不会浪费纸张。",
+      drawSig: "请签名",
+      drawHint: "使用鼠标、触控板或手指签名。",
+      btnClear: "清除", btnCancel: "取消", btnSave: "保存",
+      phName: "例如：Kesh", phReason: "例如：午餐", phDuration: "例如：1 小时",
+      nowLabel: "现在",
+      toastSaved: "档案已保存 ✓", toastLoaded: "档案已载入",
+      toastCleared: "档案已清除",
+      toastNoStorage: "无法保存 — 浏览器存储不可用",
+      toastPastDate: "⚠ 此日期已过 — 您确定吗？",
+      toastPdfGenerating: "正在生成 PDF…",
+      toastPdfSaved: "PDF 已保存 ✓",
+      toastPdfError: "无法生成 PDF",
+      reasons: ["午餐","会议","银行事务","个人","就医"],
+      durations: ["30 分钟","1 小时","1.5 小时","2 小时"]
+    },
+    ta: {
+      appTitle: "பணியாளர் அதிகாரப்பூர்வ அனுமதிப் படிவம் (EOP) — Hotel NEO+ Penang",
+      name: "பெயர்", position: "பதவி / துறை", date: "தேதி",
+      timeOut: "வெளியேறும் நேரம்", reason: "காரணம்",
+      duration: "அனுமதிக்கப்பட்ட காலம்",
+      addSig: "✍ கையொப்பம் சேர்க்க", clearSig: "கையொப்பத்தை அழி",
+      resetTime: "⟳ தற்போதைய நேரத்திற்கு மாற்று", print: "🖨 அச்சிடு",
+      saveProfile: "💾 சுயவிவரம் சேமி",
+      clearProfile: "சேமித்த சுயவிவரத்தை அழி",
+      savePdf: "📄 PDF ஆக சேமி",
+      linkAll: "🔗 அனைத்தையும் HR நகலுக்கு இணை",
+      unlinkAll: "🔗 அனைத்தையும் துண்டி",
+      linkHint: "HR நகலிலும் (கீழே) இந்த புலத்தை நிரப்ப கிளிக் செய்யவும்",
+      linkHintBanner: "💡 உதவிக்குறிப்பு: 🔗 ஐ கிளிக் செய்து புலத்தை HR நகலிலும் (கீழே) நிரப்பலாம். இயல்பாக மேல் நகல் (பாதுகாப்பு) மட்டுமே நிரப்பப்படும், நீங்கள் வெளியே செல்லவில்லை என்றால் காகிதம் வீணாகாது.",
+      drawSig: "உங்கள் கையொப்பத்தை வரையவும்",
+      drawHint: "கையொப்பமிட சுட்டி, டச்பேட் அல்லது விரலைப் பயன்படுத்தவும்.",
+      btnClear: "அழி", btnCancel: "ரத்து", btnSave: "சேமி",
+      phName: "எ.கா: Kesh", phReason: "எ.கா: மதிய உணவு",
+      phDuration: "எ.கா: 1 மணி நேரம்",
+      nowLabel: "இப்போது",
+      toastSaved: "சுயவிவரம் சேமிக்கப்பட்டது ✓",
+      toastLoaded: "சுயவிவரம் ஏற்றப்பட்டது",
+      toastCleared: "சுயவிவரம் அழிக்கப்பட்டது",
+      toastNoStorage: "சேமிக்க முடியவில்லை — உலாவி சேமிப்பு கிடைக்கவில்லை",
+      toastPastDate: "⚠ இந்த தேதி கடந்துவிட்டது — உறுதியாக இருக்கிறீர்களா?",
+      toastPdfGenerating: "PDF உருவாக்கப்படுகிறது…",
+      toastPdfSaved: "PDF சேமிக்கப்பட்டது ✓",
+      toastPdfError: "PDF உருவாக்க முடியவில்லை",
+      reasons: ["மதிய உணவு","கூட்டம்","வங்கி வேலை","தனிப்பட்ட","மருத்துவம்"],
+      durations: ["30 நிமிடங்கள்","1 மணி நேரம்","1.5 மணி நேரம்","2 மணி நேரம்"]
+    }
+  };
+
+  let currentLang = 'en';
+  function t(key) { return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key; }
+
+  function applyI18n(lang) {
+    currentLang = lang;
+    const dict = I18N[lang] || I18N.en;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (dict[key]) el.textContent = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.dataset.i18nPh;
+      if (dict[key]) el.placeholder = dict[key];
+    });
+    // Translate tooltips (title attributes) — used for the 🔗 link-toggle buttons
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+      const key = el.dataset.i18nTitle;
+      if (dict[key]) el.setAttribute('title', dict[key]);
+    });
+    document.getElementById('reasons').innerHTML =
+      dict.reasons.map(v => `<option value="${v}">`).join('');
+    document.getElementById('durations').innerHTML =
+      dict.durations.map(v => `<option value="${v}">`).join('');
+    // Refresh the "Link all / Unlink all" button label to match current state
+    const linkBtn = document.getElementById('btn-link-toggle-all');
+    if (linkBtn && typeof linkState !== 'undefined') {
+      const allLinked = Object.values(linkState).every(v => v === true);
+      linkBtn.textContent = allLinked ? t('unlinkAll') : t('linkAll');
+    }
+    tickClock();
+  }
+
+  /* ============ DATE / TIME ============ */
+  function setNow() {
+    const now = new Date();
+    document.getElementById('ctl-date').value =
+      `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+    document.getElementById('ctl-time').value =
+      `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    updateForm();
+  }
+
+  function tickClock() {
+    const n = new Date();
+    const h12 = ((n.getHours() + 11) % 12) + 1;
+    const suf = n.getHours() >= 12 ? 'PM' : 'AM';
+    document.getElementById('clock').textContent =
+      `${t('nowLabel')}: ${pad(n.getDate())}/${pad(n.getMonth()+1)}/${n.getFullYear()} · ${h12}:${pad(n.getMinutes())} ${suf}`;
+  }
+  setInterval(tickClock, 30000);
+
+  /* ============ FORMATTERS ============ */
+  function formatDate(iso) {
+    if (!iso) return '';
+    const [y, m, d] = iso.split('-');
+    return `${d}/${m}/${y}`;
+  }
+  function formatTime(ts) {
+    if (!ts) return '';
+    const [hStr, minStr] = ts.split(':');
+    const h = Number(hStr), min = Number(minStr);
+    const suf = h >= 12 ? 'PM' : 'AM';
+    const h12 = ((h + 11) % 12) + 1;
+    return `${h12}:${pad(min)} ${suf}`;
+  }
+
+  /* ============ SYNC INPUTS -> FORM ============ */
+  // Which fields should also fill the HR (bottom) copy?
+  // Default: all false. Toggled via the 🔗 icons next to each input.
+  const linkState = {
+    name: false, position: false, date: false,
+    time: false, reason: false, duration: false
+  };
+
+  function updateForm() {
+    const vals = {
+      name: document.getElementById('ctl-name').value.trim(),
+      position: document.getElementById('ctl-position').value.trim(),
+      date: formatDate(document.getElementById('ctl-date').value),
+      time: formatTime(document.getElementById('ctl-time').value),
+      reason: document.getElementById('ctl-reason').value.trim(),
+      duration: document.getElementById('ctl-duration').value.trim()
+    };
+
+    // Top copy (Security Post) — always gets every field
+    document.querySelectorAll('[data-copy="top"] [data-field]').forEach(el => {
+      el.textContent = vals[el.dataset.field] || '';
+    });
+
+    // Bottom copy (HR) — only linked fields; others stay blank so paper
+    // isn't wasted if the employee never actually goes out
+    document.querySelectorAll('[data-copy="bottom"] [data-field]').forEach(el => {
+      const fieldName = el.dataset.field;
+      el.textContent = linkState[fieldName] ? (vals[fieldName] || '') : '';
+    });
+  }
+  ['ctl-name','ctl-position','ctl-date','ctl-time','ctl-reason','ctl-duration']
+    .forEach(id => document.getElementById(id).addEventListener('input', updateForm));
+
+  /* ============ LINK TOGGLE BUTTONS ============ */
+  function setLinkState(field, isLinked) {
+    linkState[field] = isLinked;
+    const label = document.querySelector(`[data-field-link="${field}"]`);
+    if (!label) return;
+    label.setAttribute('data-linked', isLinked ? 'true' : 'false');
+    const btn = label.querySelector('.link-toggle');
+    if (btn) {
+      btn.classList.toggle('is-linked', isLinked);
+      btn.textContent = isLinked ? '🔗' : '🔗';  // same icon, styling differentiates
+      btn.setAttribute('aria-pressed', String(isLinked));
+    }
+    updateForm();
+  }
+
+  // Wire up each 🔗 toggle
+  document.querySelectorAll('.link-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const label = btn.closest('[data-field-link]');
+      if (!label) return;
+      const field = label.dataset.fieldLink;
+      setLinkState(field, !linkState[field]);
+    });
+  });
+
+  // "Link all / Unlink all" quick toggle button
+  document.getElementById('btn-link-toggle-all').addEventListener('click', () => {
+    // If any are unlinked, link all. Otherwise unlink all.
+    const allLinked = Object.values(linkState).every(v => v === true);
+    const target = !allLinked;
+    Object.keys(linkState).forEach(f => setLinkState(f, target));
+    // Update the button label to reflect new state
+    const btn = document.getElementById('btn-link-toggle-all');
+    btn.textContent = target ? t('unlinkAll') : t('linkAll');
+    btn.setAttribute('data-i18n', target ? 'unlinkAll' : 'linkAll');
+  });
+
+  document.getElementById('btn-now').addEventListener('click', setNow);
+
+  /* ============ SIGNATURE PAD ============ */
+  const canvas = document.getElementById('sig-canvas');
+  const ctx = canvas.getContext('2d');
+  function resetPen() {
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+  resetPen();
+
+  let drawing = false, lastX = 0, lastY = 0, hasInk = false;
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const sx = canvas.width / rect.width;
+    const sy = canvas.height / rect.height;
+    const src = e.touches ? e.touches[0] : e;
+    return { x: (src.clientX - rect.left) * sx, y: (src.clientY - rect.top) * sy };
+  }
+  function startDraw(e) {
+    e.preventDefault();
+    drawing = true;
+    const p = getPos(e); lastX = p.x; lastY = p.y;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, ctx.lineWidth/2, 0, Math.PI*2);
+    ctx.fillStyle = '#000'; ctx.fill();
+    hasInk = true;
+  }
+  function moveDraw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY); ctx.lineTo(p.x, p.y); ctx.stroke();
+    lastX = p.x; lastY = p.y; hasInk = true;
+  }
+  function endDraw() { drawing = false; }
+  canvas.addEventListener('mousedown', startDraw);
+  canvas.addEventListener('mousemove', moveDraw);
+  canvas.addEventListener('mouseup', endDraw);
+  canvas.addEventListener('mouseleave', endDraw);
+  canvas.addEventListener('touchstart', startDraw, { passive: false });
+  canvas.addEventListener('touchmove', moveDraw, { passive: false });
+  canvas.addEventListener('touchend', endDraw);
+
+  function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    resetPen(); hasInk = false;
+  }
+  function exportTrimmed() {
+    const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const d = img.data;
+    let top = canvas.height, left = canvas.width, right = 0, bottom = 0;
+    let found = false;
+    for (let y = 0; y < canvas.height; y++) {
+      for (let x = 0; x < canvas.width; x++) {
+        if (d[(y * canvas.width + x) * 4 + 3] > 0) {
+          found = true;
+          if (x < left) left = x;
+          if (x > right) right = x;
+          if (y < top) top = y;
+          if (y > bottom) bottom = y;
+        }
+      }
+    }
+    if (!found) return null;
+    const padPx = 10;
+    left = Math.max(0, left - padPx);
+    top = Math.max(0, top - padPx);
+    right = Math.min(canvas.width - 1, right + padPx);
+    bottom = Math.min(canvas.height - 1, bottom + padPx);
+    const w = right - left + 1, h = bottom - top + 1;
+    const out = document.createElement('canvas');
+    out.width = w; out.height = h;
+    out.getContext('2d').drawImage(canvas, left, top, w, h, 0, 0, w, h);
+    return out.toDataURL('image/png');
+  }
+
+  let currentSig = null;
+  const modal = document.getElementById('sig-modal');
+  document.getElementById('btn-sign').addEventListener('click', () => modal.classList.add('active'));
+  document.getElementById('sig-cancel').addEventListener('click', () => modal.classList.remove('active'));
+  document.getElementById('sig-clear').addEventListener('click', clearCanvas);
+  document.getElementById('sig-save').addEventListener('click', () => {
+    if (!hasInk) { modal.classList.remove('active'); return; }
+    currentSig = exportTrimmed();
+    if (currentSig) {
+      document.querySelectorAll('.sig-slot').forEach(img => img.src = currentSig);
+    }
+    modal.classList.remove('active');
+  });
+  document.getElementById('btn-clear-sig').addEventListener('click', () => {
+    currentSig = null;
+    document.querySelectorAll('.sig-slot').forEach(img => img.removeAttribute('src'));
+    clearCanvas();
+  });
+
+  /* ============ PROFILE (localStorage) ============ */
+  const PROFILE_KEY = 'eop_form_profile_v1';
+
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+  function saveProfile() {
+    const data = {
+      name: document.getElementById('ctl-name').value,
+      position: document.getElementById('ctl-position').value,
+      signature: currentSig || null,
+      lang: currentLang
+    };
+    try {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(data));
+      showToast(t('toastSaved'));
+    } catch (e) {
+      showToast(t('toastNoStorage'));
+    }
+  }
+  function loadProfile() {
+    try {
+      const raw = localStorage.getItem(PROFILE_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) { return null; }
+  }
+  function clearProfile() {
+    try { localStorage.removeItem(PROFILE_KEY); } catch (e) {}
+    document.getElementById('ctl-name').value = '';
+    document.getElementById('ctl-position').value = 'IT';
+    currentSig = null;
+    document.querySelectorAll('.sig-slot').forEach(img => img.removeAttribute('src'));
+    updateForm();
+    showToast(t('toastCleared'));
+  }
+  document.getElementById('btn-save-profile').addEventListener('click', saveProfile);
+  document.getElementById('btn-clear-profile').addEventListener('click', clearProfile);
+
+  /* ============ LANGUAGE SELECT ============ */
+  const langSelect = document.getElementById('lang-select');
+  langSelect.addEventListener('change', (e) => {
+    applyI18n(e.target.value);
+    try {
+      const existing = loadProfile() || {};
+      existing.lang = e.target.value;
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(existing));
+    } catch (err) {}
+  });
+
+  /* ============ STARTUP ============ */
+  setNow();
+  const saved = loadProfile();
+  if (saved) {
+    if (saved.lang && I18N[saved.lang]) {
+      langSelect.value = saved.lang;
+      applyI18n(saved.lang);
+    } else {
+      applyI18n('en');
+    }
+    if (saved.name) document.getElementById('ctl-name').value = saved.name;
+    if (saved.position) document.getElementById('ctl-position').value = saved.position;
+    if (saved.signature) {
+      currentSig = saved.signature;
+      document.querySelectorAll('.sig-slot').forEach(img => img.src = saved.signature);
+    }
+    updateForm();
+    if (saved.name || saved.signature) showToast(t('toastLoaded'));
+  } else {
+    applyI18n('en');
+  }
+
+  document.getElementById('btn-print').addEventListener('click', () => window.print());
+
+  /* ============ PAST-DATE WARNING ============ */
+  // Track last-warned date so we don't spam toasts on every keystroke
+  let _lastWarnedDate = '';
+  document.getElementById('ctl-date').addEventListener('change', () => {
+    const val = document.getElementById('ctl-date').value; // YYYY-MM-DD
+    if (!val || val === _lastWarnedDate) return;
+    // Compare as YYYY-MM-DD strings which sort lexicographically
+    const today = new Date();
+    const todayStr = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+    if (val < todayStr) {
+      showToast(t('toastPastDate'));
+      _lastWarnedDate = val;
+    }
+  });
+
+  /* ============ SAVE AS PDF ============ */
+  document.getElementById('btn-save-pdf').addEventListener('click', () => {
+    if (typeof html2pdf === 'undefined') {
+      showToast(t('toastPdfError'));
+      return;
+    }
+    const page = document.querySelector('.page');
+    if (!page) return;
+
+    showToast(t('toastPdfGenerating'));
+
+    // Build a nice filename: EOP_Name_YYYYMMDD.pdf
+    const name = (document.getElementById('ctl-name').value || 'EOP').trim()
+      .replace(/[^a-zA-Z0-9_\-]/g, '_').substring(0, 30);
+    const dateVal = document.getElementById('ctl-date').value || '';
+    const dateStamp = dateVal.replace(/-/g, '');
+    const filename = `EOP_${name}${dateStamp ? '_' + dateStamp : ''}.pdf`;
+
+    // Temporarily add 'pdf-export' class so .page renders at exact A4 size
+    // with tight print-like spacing (prevents content spilling to page 2)
+    document.body.classList.add('pdf-export');
+
+    const opt = {
+      margin: 0,  // margins handled by .pdf-export .page padding itself
+      filename: filename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: {
+        scale: 2,                 // 2x for crisp output
+        useCORS: true,
+        backgroundColor: '#ffffff', // force white bg (fixes Firefox dark mode)
+        logging: false,
+        // Lock rendering viewport to A4 width in pixels (210mm @ 96dpi ≈ 794px)
+        windowWidth: 794,
+        width: 794
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait',
+        compress: true
+      },
+      // 'avoid-all' = never break inside elements; 'css' respects page-break rules
+      pagebreak: { mode: ['css', 'avoid-all'] }
+    };
+
+    // Give the toast + class change a chance to apply before heavy rendering
+    setTimeout(() => {
+      html2pdf().set(opt).from(page).save()
+        .then(() => {
+          showToast(t('toastPdfSaved'));
+          document.body.classList.remove('pdf-export');
+        })
+        .catch(err => {
+          console.error('PDF generation failed:', err);
+          showToast(t('toastPdfError'));
+          document.body.classList.remove('pdf-export');
+        });
+    }, 80);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') modal.classList.remove('active');
+  });
+
+  /* ════════════════════════════════════════════════════════════
+     🥚 EASTER EGGS — for the curious dev who reads the source
+     ════════════════════════════════════════════════════════════ */
+
+  // --- Layer 1: Console banner on page load ----------------------
+  const banner = [
+    '%c',
+    '   ╔══════════════════════════════════════════════════════════╗',
+    '   ║                                                          ║',
+    '   ║   🏨  Hotel NEO+ Penang · EOP Form                       ║',
+    '   ║                                                          ║',
+    '   ║   Built by Kesh  ·  aka  d e a d b o y                   ║',
+    '   ║   Version:  1.0  ·  Shipped with ☕ and spite            ║',
+    '   ║                                                          ║',
+    '   ╚══════════════════════════════════════════════════════════╝',
+    '',
+    '   👀 You found the console. Respect. Here are the toys:',
+    '',
+    '   ┌─ CONSOLE COMMANDS ──────────────────────────────────────┐',
+    '   │                                                         │',
+    '   │   deadboy()    →  full credits + dev notes              │',
+    '   │   partyMode()  →  80 emojis rain from the sky 🎉        │',
+    '   │                                                         │',
+    '   └─────────────────────────────────────────────────────────┘',
+    '',
+    '   ┌─ KEYBOARD / MOUSE ──────────────────────────────────────┐',
+    '   │                                                         │',
+    '   │   Konami Code  →  ↑ ↑ ↓ ↓ ← → ← → B A                   │',
+    '   │                   (click outside any input first,       │',
+    '   │                    then type the sequence)              │',
+    '   │                                                         │',
+    '   │   Triple-click the form title →  secret toast 👻        │',
+    '   │                                                         │',
+    '   └─────────────────────────────────────────────────────────┘',
+    '',
+    '   ⌨  Go on — try one.',
+    ''
+  ].join('\n');
+  try {
+    console.log(
+      banner,
+      'color:#e11d48; font-family:monospace; font-size:12px; line-height:1.35; background:#0b0f17; padding:10px 14px; border-radius:4px;'
+    );
+  } catch (e) {}
+
+  // --- Layer 2: deadboy() global command -------------------------
+  window.deadboy = function () {
+    const msg = [
+      '',
+      '  💀  DEADBOY MODE  💀',
+      '',
+      '  Name   : Kesh',
+      '  Role   : IT, reluctantly',
+      '  Loc    : Hotel NEO+ Penang',
+      '  Build  : EOP Form / 012',
+      '  Stack  : vanilla HTML · CSS · JS (no frameworks, no regrets)',
+      '  i18n   : EN · MS · ZH · TA',
+      '  Feat   : signature pad · profile save · PDF export · responsive',
+      '',
+      '  "If you can read this, you\'re probably going to be',
+      '   the one who has to maintain it. Good luck. 🫡"',
+      '',
+      '  ─── OTHER EGGS ──────────────────────────────────',
+      '    partyMode()            →  emoji rain',
+      '    ↑↑↓↓←→←→BA             →  Konami (same as partyMode + bonus)',
+      '    triple-click the title →  hidden toast',
+      '  ─────────────────────────────────────────────────',
+      ''
+    ].join('\n');
+    console.log(
+      '%c' + msg,
+      'color:#10b981; font-family:monospace; font-size:12px; line-height:1.4; background:#0b0f17; padding:10px; border-radius:4px;'
+    );
+    return '✓ credits shown';
+  };
+
+  // --- Layer 3: partyMode() — confetti + sparkle -----------------
+  window.partyMode = function () {
+    const emojis = ['🎉', '✨', '🎊', '💀', '🏨', '☕', '🔥', '⭐', '💫'];
+    const count = 80;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('div');
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.cssText = `
+        position: fixed;
+        left: ${Math.random() * 100}vw;
+        top: -40px;
+        font-size: ${18 + Math.random() * 24}px;
+        pointer-events: none;
+        z-index: 99999;
+        transition: transform 3.5s cubic-bezier(.3,.6,.4,1), opacity 3.5s ease-out;
+      `;
+      document.body.appendChild(el);
+      // Trigger the fall on the next frame
+      requestAnimationFrame(() => {
+        el.style.transform = `translateY(${window.innerHeight + 100}px) rotate(${(Math.random() - 0.5) * 720}deg)`;
+        el.style.opacity = '0';
+      });
+      setTimeout(() => el.remove(), 3600);
+    }
+    showToast('🎉 party mode activated');
+    return '🎊';
+  };
+
+  // --- Layer 4: Konami code — ↑↑↓↓←→←→BA -------------------------
+  // NOTE: Only listens when focus is NOT in an input/textarea, so
+  // devs poking around the blank page can trigger it, but normal
+  // users typing into form fields never will by accident.
+  const konami = [
+    'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+    'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+    'b','a'
+  ];
+  let konamiIdx = 0;
+  document.addEventListener('keydown', (e) => {
+    // Skip if user is typing in an input/select/textarea
+    const tag = (e.target && e.target.tagName) || '';
+    if (['INPUT','TEXTAREA','SELECT'].includes(tag)) return;
+
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if (key === konami[konamiIdx]) {
+      konamiIdx++;
+      if (konamiIdx === konami.length) {
+        konamiIdx = 0;
+        window.partyMode();
+        console.log('%c💀 KONAMI ACTIVATED · made by deadboy', 'color:#e11d48; font-weight:bold; font-size:14px;');
+      }
+    } else {
+      konamiIdx = 0;
+    }
+  });
+
+  // --- Layer 5: Triple-click the form title for a secret toast ---
+  const titleEl = document.querySelector('.form-title');
+  if (titleEl) {
+    let clickCount = 0;
+    let clickTimer = null;
+    titleEl.addEventListener('click', () => {
+      clickCount++;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(() => { clickCount = 0; }, 600);
+      if (clickCount >= 3) {
+        clickCount = 0;
+        showToast('👻 made by kesh · deadboy was here');
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
